@@ -1,0 +1,36 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    margin: 5%;
+}
+
+.sort {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+
+    &__box {
+        display: flex;
+        width: 70%;
+        justify-content: space-between;
+        align-items: center;
+
+        &_buttons {
+            display: flex;
+            gap: 10px;
+        }
+    }
+}
+
+.main {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.img {
+    height: 3rem;
+    width: 5rem;
+}
