@@ -5,10 +5,12 @@ import Dropdown from 'react-bootstrap/Dropdown'
 import DropdownButton from 'react-bootstrap/DropdownButton'
 
 interface IProps {
-  setSortType: (sortType: string) => void
+  setFilterType: (sortType: string) => void
+  setIsFatching: (isFatching: boolean) => void
+  isFatching: boolean
 }
 
-const SortType = ({ setSortType }: IProps) => {
+const FilterType = ({ setFilterType, setIsFatching, isFatching }: IProps) => {
   const GET_TYPE = gql`
     query GetType {
       vehicles {
@@ -35,7 +37,8 @@ const SortType = ({ setSortType }: IProps) => {
   )
 
   const handleClick = (item: string) => {
-    setSortType(item)
+    setFilterType(item)
+    setIsFatching(!isFatching)
   }
 
   return (
@@ -53,4 +56,4 @@ const SortType = ({ setSortType }: IProps) => {
   )
 }
 
-export default SortType
+export default FilterType

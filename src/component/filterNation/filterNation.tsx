@@ -1,16 +1,22 @@
 import { useQuery, gql } from '@apollo/client'
 import { Order } from '../../types'
 
-import s from './sortNation.module.scss'
+import s from './filterNation.module.scss'
 
 import Dropdown from 'react-bootstrap/Dropdown'
 import DropdownButton from 'react-bootstrap/DropdownButton'
 
 interface IProps {
-  setSortNation: (sortNation: string) => void
+  setFilterNation: (sortNation: string) => void
+  setIsFatching: (isFatching: boolean) => void
+  isFatching: boolean
 }
 
-const SortNation = ({ setSortNation }: IProps) => {
+const FilterNation = ({
+  setFilterNation,
+  setIsFatching,
+  isFatching
+}: IProps) => {
   const GET_NATION = gql`
     query GetNation {
       vehicles {
@@ -39,7 +45,8 @@ const SortNation = ({ setSortNation }: IProps) => {
   )
 
   const handleClick = (item: string) => {
-    setSortNation(item)
+    setFilterNation(item)
+    setIsFatching(!isFatching)
   }
 
   return (
@@ -57,4 +64,4 @@ const SortNation = ({ setSortNation }: IProps) => {
   )
 }
 
-export default SortNation
+export default FilterNation

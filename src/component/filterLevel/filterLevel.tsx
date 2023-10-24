@@ -5,10 +5,12 @@ import Dropdown from 'react-bootstrap/Dropdown'
 import DropdownButton from 'react-bootstrap/DropdownButton'
 
 interface IProps {
-  setSortLevel: (sortLevel: number) => void
+  setFilterLevel: (sortLevel: number) => void
+  setIsFatching: (isFatching: boolean) => void
+  isFatching: boolean
 }
 
-const SortLevel = ({ setSortLevel }: IProps) => {
+const FilterLevel = ({ setFilterLevel, setIsFatching, isFatching }: IProps) => {
   const GET_LEVEL = gql`
     query GetLevel {
       vehicles {
@@ -32,7 +34,8 @@ const SortLevel = ({ setSortLevel }: IProps) => {
     .sort((a, b) => a - b)
 
   const handleClick = (item: number) => {
-    setSortLevel(item)
+    setFilterLevel(item)
+    setIsFatching(!isFatching)
   }
 
   return (
@@ -50,4 +53,4 @@ const SortLevel = ({ setSortLevel }: IProps) => {
   )
 }
 
-export default SortLevel
+export default FilterLevel
