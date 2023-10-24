@@ -1,11 +1,12 @@
 import { useQuery, gql } from '@apollo/client'
-import { Order, Response } from '../../types'
+import { Order } from '../types'
 import { useState, useEffect } from 'react'
 
-import { Item } from '../../component/card'
-import { FilterLevel } from '../../component/filterLevel'
-import { FilterType } from '../../component/filterType'
-import { FilterNation } from '../../component/filterNation'
+import { Item } from '../component/card'
+import { FilterLevel } from '../component/filterLevel'
+import { FilterType } from '../component/filterType'
+import { FilterNation } from '../component/filterNation'
+import Button from 'react-bootstrap/Button'
 
 import s from './main.module.scss'
 
@@ -126,6 +127,13 @@ function Main() {
     }
   }, [isFatching])
 
+  const handleClearFilter = () => {
+    setFilterLevel(0)
+    setFilterNation('')
+    setFilterType('')
+    setFilterData([])
+  }
+
   if (loading) return <p>Loading...</p>
   if (error) return <p>Error : {error.message}</p>
 
@@ -150,6 +158,9 @@ function Main() {
               setIsFatching={setIsFatching}
               isFatching={isFatching}
             />
+            <Button variant="primary" onClick={handleClearFilter}>
+              Очистить фильтр
+            </Button>
           </div>
           <div className={s.sort__box_text}>
             <h4>Уровень:{filterLevel !== 0 ? filterLevel : ''}</h4>
@@ -164,6 +175,8 @@ function Main() {
       </div>
       {filterData.length !== 0 ? (
         filterData.length === 0 && filterLevel && filterNation && filterType ? (
+          <h3>Кораблей с таками параметрами не существует</h3>
+        ) : (
           <div className={s.main}>
             {filterData.map((item: Order) => (
               <Item
@@ -177,8 +190,6 @@ function Main() {
               />
             ))}
           </div>
-        ) : (
-          <h3>Кораблей с таками параметрами не существует</h3>
         )
       ) : (
         <div className={s.main}>
